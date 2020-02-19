@@ -1,0 +1,111 @@
+// variables to reference responsive widths
+$responsive-desktop-width: 1260px
+$responsive-mobile-width: 768px
+    
+html
+    font-size: 18px // setting width at html level to ensure proper rem size calculations
+
+body
+    margin: 0
+    font-family: sans-serif, Arial, Helvetica
+
+.layout-responsive
+    max-width: $responsive-desktop-width
+    width: 100%
+    display: flex
+    flex-direction: column
+    margin: 75px auto 0 auto
+
+.layout-banner
+    width: 100%
+    height: 350px
+    background: url('../assets/splash-banner.svg') no-repeat // set up for parallax image
+    background-attachment: fixed
+    background-position: top center
+    background-repeat: no-repeat
+    background-size: auto 100%
+    &__text
+        color: #fff
+        font-size: 3rem
+        width: 6em
+        margin: 8% 10%
+    
+
+.layout-group 
+    text-align: center
+    margin: 25px 0
+    &__content
+        display: flex
+
+.main-product 
+    width: 100%
+    display: grid // using grid for desktop layout of main product since since it's a two dimensional layout
+    grid-template: [row1-start] "description image" [row1-end][row2-start] "button image" [row2-end] / 1fr 1fr
+    grid-gap: 5px
+    &__image
+        grid-area: image
+        min-width: 50%
+        height: 300px
+        background: #2d4059
+
+    &__description
+        grid-area: description
+        width: 31em // using em units to set line width of description text to maintain readability
+        justify-self: center
+    &__action
+        grid-area: button
+        .button 
+            border: 2px solid #ddd
+            border-radius: 5px
+            text-transform: uppercase
+            background: #ddd
+            font-weight: bold
+            padding: 15px 50px
+            outline: none
+
+.product-card
+    border: solid 1px #ccc
+    padding: 15px
+    text-align: left
+    margin: 0 10px
+    flex: 1 0 auto
+    max-width: 500px // setting max width here to use in setting responsive styles 
+    &__image
+        height: 250px
+        width: 100%
+        background: #ea5455
+    &__title
+        margin: 10px auto 5px auto
+    &__price
+        font-size: 1.4rem
+        font-weight: bold
+        &--sale
+            color: #ea5455
+
+@media only screen and (max-width: 1290px) 
+    .layout-responsive
+        padding: 0 15px // keeping content from edge of page when screen is at 1260px
+        max-width: calc( 100% - 30px ) // avoiding horizontal scrolling by compensating for added padding
+
+// mobile/responsive styles
+@media only screen and (max-width: $responsive-mobile-width)
+    .layout-responsive
+        margin: 50px auto 0 auto
+
+    .layout-group__content 
+        flex-direction: column // changing to column layout 
+        align-items: center
+
+    .main-product 
+        display: flex // swapping to flex layout since grid is no longer needed for mobile layout
+        flex-direction: column
+        &__description
+            width: 100% // resetting description width to fill page
+            margin: 20px 0
+        &__action
+            .button
+                width: 100%
+
+    .product-card
+        margin: 5px 0
+        width: calc( 100% - 30px ) // forcing product to max page width while compensating for padding
